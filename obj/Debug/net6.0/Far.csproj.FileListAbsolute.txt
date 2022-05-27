@@ -1,0 +1,15 @@
+D:\ТиМП\Far\Far\bin\Debug\net6.0\Far.exe
+D:\ТиМП\Far\Far\bin\Debug\net6.0\Far.deps.json
+D:\ТиМП\Far\Far\bin\Debug\net6.0\Far.runtimeconfig.json
+D:\ТиМП\Far\Far\bin\Debug\net6.0\Far.dll
+D:\ТиМП\Far\Far\bin\Debug\net6.0\Far.pdb
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.csproj.AssemblyReference.cache
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.GeneratedMSBuildEditorConfig.editorconfig
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.AssemblyInfoInputs.cache
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.AssemblyInfo.cs
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.csproj.CoreCompileInputs.cache
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.dll
+D:\ТиМП\Far\Far\obj\Debug\net6.0\refint\Far.dll
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.pdb
+D:\ТиМП\Far\Far\obj\Debug\net6.0\Far.genruntimeconfig.cache
+D:\ТиМП\Far\Far\obj\Debug\net6.0\ref\Far.dll

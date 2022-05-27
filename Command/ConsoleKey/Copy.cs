@@ -1,0 +1,108 @@
+﻿namespace Far.Command
+{
+    /// <summary>
+    /// копирование файла с одной панели на другую
+    /// </summary>
+    public class Copy : ICommand<ConsoleKeyInfo>
+    {
+        public bool CanExecute(ConsoleKeyInfo item)
+        {
+            return item.Key == ConsoleKey.F5;
+        }
+
+        public bool Execute()
+        {
+            View view = View.GetInstance();
+            try
+            {
+                if (view.FilePanel == FilePanel.Left)
+                {
+                    if (File.Exists(view.PathOnLeftPanel + "\\" +
+                                    view.FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name))
+                    {
+                        if (File.Exists(view.PathOnRightPanel + "\\" +
+                                        view.FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name))
+                        {
+                            FormWithMessage.Show(view.ConsoleWidht, view.ConsoleHeight);
+                            FormWithMessage.ShowYN(view.ConsoleWidht, view.ConsoleHeight,
+                                "The file exists. Do you want to replace it?");
+                            var click = Console.ReadKey();
+                            if (click.Key == ConsoleKey.Y)
+                            {
+                                File.Delete(view.PathOnRightPanel + "\\" + view
+                                    .FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name);
+                            }
+                        }
+
+                        File.Copy(
+                            view.PathOnLeftPanel + "\\" +
+                            view.FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name,
+                            view.PathOnRightPanel + "\\" +
+                            view.FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name);
+                    }
+                    else
+                    {
+                        CopyDir(view.PathOnLeftPanel + "\\" +
+                            view.FilesAndDirectoriesOnLeftPanel[view.AbsolutleCursorOffseOnLeftPanel].Name, view.PathOnRightPanel + "\\" +
+                                                  view.FilesAndDirectoriesOnLeftPanel[
+                                                      view.AbsolutleCursorOffseOnLeftPanel].Name);
+                    }
+                }
+                else
+                {
+                    if (File.Exists(view.PathOnRightPanel + "\\" +
+                                    view.FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name))
+                    {
+                        if (File.Exists(view.PathOnLeftPanel + "\\" +
+                                        view.FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel]
+                                            .Name))
+                        {
+                            FormWithMessage.Show(view.ConsoleWidht, view.ConsoleHeight);
+                            FormWithMessage.ShowYN(view.ConsoleWidht, view.ConsoleHeight,
+                                "The file exists. Do you want to replace it?");
+                            var click = Console.ReadKey();
+                            if (click.Key == ConsoleKey.Y)
+                            {
+                                File.Delete(view.PathOnLeftPanel + "\\" + view
+                                    .FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name);
+                            }
+                        }
+
+                        File.Copy(
+                            view.PathOnRightPanel + "\\" + view
+                                .FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name,
+                            view.PathOnLeftPanel + "\\" + view
+                                .FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name);
+                    }
+                    else
+                    {
+                        CopyDir(view.PathOnRightPanel + "\\" + view
+                                .FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name,
+                                view.PathOnLeftPanel + "\\" + view
+                                .FilesAndDirectoriesOnRightPanel[view.AbsolutleCursorOffseOnRightPanel].Name);
+                    }
+                }
+            }
+            finally
+            {
+                Window.HideMessage();
+            }
+
+            return false;
+        }
+
+        private void CopyDir(string fromDir, string toDir)
+        {
+            Directory.CreateDirectory(toDir);
+            foreach (string s1 in Directory.GetFiles(fromDir))
+            {
+                string s2 = toDir + "\\" + Path.GetFileName(s1);
+                File.Copy(s1, s2);
+            }
+            foreach (string s in Directory.GetDirectories(fromDir))
+            {
+                CopyDir(s, toDir + "\\" + Path.GetFileName(s));
+            }
+        }
+    }
+}
